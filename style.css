@@ -162,3 +162,234 @@ nav a:hover {
   transform: scale(1.04);
   box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
+
+
+.about-container, .contact-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 30px;
+}
+
+.about-photo {
+  width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+
+
+
+/* ABOUT PAGE */
+.about-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.about-card {
+  background: white;
+  width: 90%;
+  max-width: 1100px;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.about-photo {
+  width: 350px;
+  height: auto;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+}
+
+.about-content {
+  flex: 1;
+}
+
+.about-content h1 {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+}
+
+.underline {
+  width: 80px;
+  height: 5px;
+  background: #0077cc;
+  border-radius: 3px;
+  margin-bottom: 25px;
+}
+
+.about-content p {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  margin-bottom: 18px;
+  color: #444;
+}
+
+/* Mobile Responsive */
+@media (max-width: 800px) {
+  .about-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-photo {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+
+  .underline {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+/* CONTACT PAGE */
+.contact-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.contact-card {
+  background: white;
+  width: 90%;
+  max-width: 700px;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.contact-card h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.contact-subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background: #fafafa;
+  transition: border 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #0077cc;
+  outline: none;
+}
+
+.submit-btn {
+  padding: 14px;
+  background: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.submit-btn:hover {
+  background: #005fa3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .contact-card {
+    padding: 30px;
+  }
+}
+
+
+
+/* THANK YOU PAGE */
+.thankyou-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.thankyou-card {
+  background: white;
+  width: 90%;
+  max-width: 700px;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  text-align: center;
+}
+
+.thankyou-card h1 {
+  font-size: 2.6rem;
+  margin-bottom: 10px;
+}
+
+.thankyou-subtitle {
+  color: #666;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.thankyou-message {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 30px;
+}
