@@ -7,17 +7,31 @@
 </head>
 
 <body>
-  <a href="gallery.html" class="button back-btn">← Back to Gallery</a>
 
-  <header class="page-header">
+  <a href="gallery.html" class="button back-btn">← Back to Galleries</a>
+
+  <section class="gallery-wrapper">
     <h1>Senior Pictures</h1>
-    <p>A collection of senior portraits</p>
-  </header>
 
-  <section class="gallery">
-    <img src="CLOUDINARY_URL_HERE" alt="">
-    <img src="CLOUDINARY_URL_HERE" alt="">
-    <img src="CLOUDINARY_URL_HERE" alt="">
+    <!-- This is where images will appear -->
+    <div id="senior-gallery" class="gallery-grid"></div>
   </section>
+
+  <script>
+    fetch("https://res.cloudinary.com/dnskk9pag/image/list/senior_gallery.json")
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("senior-gallery");
+
+        data.resources.forEach(img => {
+          const image = document.createElement("img");
+          image.src = img.secure_url;
+          image.className = "gallery-photo";
+          container.appendChild(image);
+        });
+      })
+      .catch(err => console.error("Error loading images:", err));
+  </script>
+
 </body>
 </html>

@@ -2,22 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Softball</title>
+  <title>Softball Pictures</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <a href="gallery.html" class="button back-btn">← Back to Gallery</a>
 
-  <header class="page-header">
-    <h1>Softball</h1>
-    <p>Softball photography collection</p>
-  </header>
+  <a href="gallery.html" class="button back-btn">← Back to Galleries</a>
 
-  <section class="gallery">
-    <img src="CLOUDINARY_URL_HERE" alt="">
-    <img src="CLOUDINARY_URL_HERE" alt="">
-    <img src="CLOUDINARY_URL_HERE" alt="">
+  <section class="gallery-wrapper">
+    <h1>Softball Pictures</h1>
+
+    <!-- This is where images will appear -->
+    <div id="softball-gallery" class="gallery-grid"></div>
   </section>
+
+  <script>
+    fetch("https://res.cloudinary.com/dnskk9pag/image/list/softball_gallery.json")
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("softball-gallery");
+
+        data.resources.forEach(img => {
+          const image = document.createElement("img");
+          image.src = img.secure_url;
+          image.className = "gallery-photo";
+          container.appendChild(image);
+        });
+      })
+      .catch(err => console.error("Error loading images:", err));
+  </script>
+
 </body>
 </html>

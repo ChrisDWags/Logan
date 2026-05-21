@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload Softball Photos</title>
+  <script src="https://upload-widget.cloudinary.com/latest/global/all.js"></script>
+</head>
+<body>
+
+<h2>Upload Softball Photos</h2>
+<button id="upload-btn">Upload Photos</button>
+
+<script>
+  const widget = cloudinary.createUploadWidget({
+    cloudName: "dnskk9pag",
+    uploadPreset: "softball_gallery",
+    folder: "softball_gallery"
+  }, (error, result) => {
+    if (!error && result && result.event === "success") {
+      console.log("Uploaded:", result.info.secure_url);
+      alert("Upload successful!");
+    }
+  });
+
+  document.getElementById("upload-btn").addEventListener("click", () => {
+    widget.open();
+  });
+</script>
+
+</body>
+</html>
