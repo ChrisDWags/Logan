@@ -13,24 +13,29 @@
   <section class="gallery-wrapper">
     <h1>Senior Pictures</h1>
 
-    <!-- This is where images will appear -->
     <div id="senior-gallery" class="gallery-grid"></div>
   </section>
 
   <script>
-    fetch("https://res.cloudinary.com/dnskk9pag/image/list/senior_gallery.json")
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById("senior-gallery");
-
-        data.resources.forEach(img => {
-          const image = document.createElement("img");
-          image.src = img.secure_url;
-          image.className = "gallery-photo";
-          container.appendChild(image);
-        });
+    fetch("https://res.cloudinary.com/dnskk9pag/image/search", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        expression: "folder:home/senior_gallery"
       })
-      .catch(err => console.error("Error loading images:", err));
+    })
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("senior-gallery");
+
+      data.resources.forEach(img => {
+        const image = document.createElement("img");
+        image.src = img.secure_url;
+        image.className = "gallery-photo";
+        container.appendChild(image);
+      });
+    })
+    .catch(err => console.error("Error loading images:", err));
   </script>
 
 </body>
