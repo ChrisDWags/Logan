@@ -17,26 +17,26 @@
   </section>
 
   <script>
-    fetch("https://res.cloudinary.com/dnskk9pag/image/search", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        expression: "folder:senior_gallery"
-      })
+  fetch("https://res.cloudinary.com/dnskk9pag/image/search", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      expression: "folder:home/home/senior_gallery"
     })
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById("senior-gallery");
+  })
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("senior-gallery");
 
-      data.resources.forEach(img => {
-        const image = document.createElement("img");
-        image.src = img.secure_url;
-        image.className = "gallery-photo";
-        container.appendChild(image);
-      });
-    })
-    .catch(err => console.error("Error loading images:", err));
-  </script>
+    data.resources.forEach(img => {
+      const image = document.createElement("img");
+      image.src = img.secure_url;
+      image.className = "gallery-photo";
+      container.appendChild(image);
+    });
+  })
+  .catch(err => console.error("Error loading images:", err));
+</script>
 
 </body>
 </html>
