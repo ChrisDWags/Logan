@@ -13,7 +13,7 @@
   const widget = cloudinary.createUploadWidget({
     cloudName: "dnskk9pag",
     uploadPreset: "senior_gallery",
-    folder: "senior_gallery"
+    folder: "home/senior_gallery"
   }, (error, result) => {
     if (!error && result && result.event === "success") {
       console.log("Uploaded:", result.info.secure_url);
