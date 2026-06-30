@@ -14,29 +14,32 @@
   </section>
 
   <script>
-    fetch('https://res.cloudinary.com/dnskk9pag/image/list?prefix=home/senior_gallery&max_results=200')
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById("senior-gallery");
-        container.innerHTML = '';
+  fetch('https://res.cloudinary.com/dnskk9pag/image/resources?prefix=home/senior_gallery&max_results=200')
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
+    .then(data => {
+      const container = document.getElementById("senior-gallery");
+      container.innerHTML = '';
 
-        if (data.resources && data.resources.length > 0) {
-          data.resources.forEach(img => {
-            const image = document.createElement("img");
-            image.src = img.secure_url;
-            image.alt = img.public_id || "Senior photo";
-            image.className = "gallery-photo";
-            container.appendChild(image);
-          });
-        } else {
-          container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #666;">No images found yet in <strong>home/senior_gallery</strong></p>';
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        document.getElementById("senior-gallery").innerHTML = 
-          '<p style="grid-column: 1 / -1; text-align: center; color: #e74c3c;">Error loading images. Check console (F12).</p>';
-      });
-  </script>
+      if (data.resources && data.resources.length > 0) {
+        data.resources.forEach(img => {
+          const image = document.createElement("img");
+          image.src = img.secure_url;
+          image.alt = img.public_id || "Senior photo";
+          image.className = "gallery-photo";
+          container.appendChild(image);
+        });
+      } else {
+        container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 40px;">No images found in <strong>home/senior_gallery</strong></p>';
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById("senior-gallery").innerHTML = 
+        `<p style="color:red; grid-column: 1 / -1; text-align: center;">Error: ${err.message}<br><br>Try different prefix below.</p>`;
+    });
+</script>
 </body>
 </html>
