@@ -5,38 +5,38 @@
   <title>Sports Pictures</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
   <a href="gallery.html" class="button back-btn">← Back to Galleries</a>
 
   <section class="gallery-wrapper">
     <h1>Sports Pictures</h1>
-
     <div id="softball-gallery" class="gallery-grid"></div>
   </section>
 
   <script>
-  fetch("https://res.cloudinary.com/dnskk9pag/image/search", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      expression: "folder:home/home/softball_gallery"
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-    const container = document.getElementById("softball-gallery");
+    fetch('https://res.cloudinary.com/dnskk9pag/image/list?prefix=home/home/softball_gallery&max_results=200')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("softball-gallery");
+        container.innerHTML = '';
 
-    data.resources.forEach(img => {
-      const image = document.createElement("img");
-      image.src = img.secure_url;
-      image.className = "gallery-photo";
-      container.appendChild(image);
-    });
-  })
-  .catch(err => console.error("Error loading images:", err));
-</script>
-
-
+        if (data.resources && data.resources.length > 0) {
+          data.resources.forEach(img => {
+            const image = document.createElement("img");
+            image.src = img.secure_url;
+            image.alt = img.public_id || "Sports photo";
+            image.className = "gallery-photo";
+            container.appendChild(image);
+          });
+        } else {
+          container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 40px;">No images found yet. Upload some to the <strong>home/home/softball_gallery</strong> folder in Cloudinary.</p>';
+        }
+      })
+      .catch(err => {
+        console.error("Error loading images:", err);
+        document.getElementById("softball-gallery").innerHTML = 
+          '<p style="grid-column: 1 / -1; text-align: center; color: #e74c3c;">Unable to load gallery right now.</p>';
+      });
+  </script>
 </body>
 </html>
