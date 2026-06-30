@@ -14,31 +14,27 @@
   </section>
 
   <script>
-  const cloudName = "dnskk9pag";
-  const prefix = "home/senior_gallery/";   // ← change this if needed
+    fetch('https://res.cloudinary.com/dnskk9pag/image/resources?prefix=senior_gallery&max_results=200')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("senior-gallery");
+        container.innerHTML = '';
 
-  fetch(`https://res.cloudinary.com/${cloudName}/image/resources?prefix=${prefix}&max_results=200`)
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById("senior-gallery");
-      container.innerHTML = '';
-
-      if (data.resources && data.resources.length > 0) {
-        console.log("Found", data.resources.length, "images");
-        data.resources.forEach(img => {
-          const image = document.createElement("img");
-          image.src = img.secure_url;
-          image.className = "gallery-photo";
-          container.appendChild(image);
-        });
-      } else {
-        container.innerHTML = `<p>No images found for prefix: ${prefix}</p>`;
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      document.getElementById("senior-gallery").innerHTML = '<p style="color:red;">Failed to load. Check console (F12).</p>';
-    });
-</script>
+        if (data.resources && data.resources.length > 0) {
+          data.resources.forEach(img => {
+            const image = document.createElement("img");
+            image.src = img.secure_url;
+            image.className = "gallery-photo";
+            container.appendChild(image);
+          });
+        } else {
+          container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 50px;">No images found.<br>Try uploading again or check folder name.</p>';
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById("senior-gallery").innerHTML = '<p style="color: red; grid-column: 1 / -1; text-align: center;">Could not load images.<br>Open F12 → Console and tell me what you see.</p>';
+      });
+  </script>
 </body>
 </html>

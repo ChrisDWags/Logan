@@ -14,32 +14,27 @@
   </section>
 
   <script>
-  fetch('https://res.cloudinary.com/dnskk9pag/image/resources?prefix=home/softball_gallery&max_results=200')
-    .then(res => {
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return res.json();
-    })
-    .then(data => {
-      const container = document.getElementById("softball-gallery");
-      container.innerHTML = '';
+    fetch('https://res.cloudinary.com/dnskk9pag/image/resources?prefix=softball_gallery&max_results=200')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("softball-gallery");
+        container.innerHTML = '';
 
-      if (data.resources && data.resources.length > 0) {
-        data.resources.forEach(img => {
-          const image = document.createElement("img");
-          image.src = img.secure_url;
-          image.alt = img.public_id || "Softball photo";
-          image.className = "gallery-photo";
-          container.appendChild(image);
-        });
-      } else {
-        container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 40px;">No images found in <strong>home/softball_gallery</strong></p>';
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      document.getElementById("softball-gallery").innerHTML = 
-        `<p style="color:red; grid-column: 1 / -1; text-align: center;">Error: ${err.message}<br><br>Try different prefix below.</p>`;
-    });
-</script>
+        if (data.resources && data.resources.length > 0) {
+          data.resources.forEach(img => {
+            const image = document.createElement("img");
+            image.src = img.secure_url;
+            image.className = "gallery-photo";
+            container.appendChild(image);
+          });
+        } else {
+          container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 50px;">No images found.<br>Try uploading again or check folder name.</p>';
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById("softball-gallery").innerHTML = '<p style="color: red; grid-column: 1 / -1; text-align: center;">Could not load images.<br>Open F12 → Console and tell me what you see.</p>';
+      });
+  </script>
 </body>
 </html>
