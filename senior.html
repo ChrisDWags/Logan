@@ -14,27 +14,34 @@
   </section>
 
   <script>
-    fetch('https://res.cloudinary.com/dnskk9pag/image/resources?prefix=senior_gallery&max_results=200')
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById("senior-gallery");
-        container.innerHTML = '';
+    // Try multiple ways
+    const urls = [
+      'https://res.cloudinary.com/dnskk9pag/image/resources?prefix=senior_gallery&max_results=200',
+      'https://res.cloudinary.com/dnskk9pag/image/resources?prefix=home/senior_gallery&max_results=200',
+      'https://res.cloudinary.com/dnskk9pag/image/resources?tags=senior&max_results=200'
+    ];
 
-        if (data.resources && data.resources.length > 0) {
+    let loaded = false;
+
+    urls.forEach((url, index) => {
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          if (loaded || !data.resources || data.resources.length === 0) return;
+          
+          loaded = true;
+          const container = document.getElementById("senior-gallery");
+          container.innerHTML = '';
+
           data.resources.forEach(img => {
             const image = document.createElement("img");
             image.src = img.secure_url;
             image.className = "gallery-photo";
             container.appendChild(image);
           });
-        } else {
-          container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 50px;">No images found.<br>Try uploading again or check folder name.</p>';
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        document.getElementById("senior-gallery").innerHTML = '<p style="color: red; grid-column: 1 / -1; text-align: center;">Could not load images.<br>Open F12 → Console and tell me what you see.</p>';
-      });
+        })
+        .catch(() => {});
+    });
   </script>
 </body>
 </html>
