@@ -1,30 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Upload Senior Photos</title>
-  <script src="https://upload-widget.cloudinary.com/latest/global/all.js"></script>
+  <meta charset="UTF-8">
+  <title>Upload Senior Pictures</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a href="gallery.html" class="button back-btn">← Back to Galleries</a>
 
-<h2>Upload Senior Photos</h2>
-<button id="upload-btn">Upload Photos</button>
+  <section class="gallery-wrapper">
+    <h1>Upload Senior Pictures</h1>
+    <p>Images will automatically be tagged "senior"</p>
 
-<script>
-  const widget = cloudinary.createUploadWidget({
-    cloudName: "dnskk9pag",
-    uploadPreset: "senior_gallery",
-    folder: "senior_gallery"
-  }, (error, result) => {
-    if (!error && result && result.event === "success") {
-      console.log("Uploaded:", result.info.secure_url);
-      alert("Upload successful!");
+    <div style="max-width: 600px; margin: 40px auto; padding: 30px; background: white; border-radius: 12px;">
+      <input type="file" id="fileInput" multiple accept="image/*" style="margin-bottom: 20px;">
+      <button onclick="uploadImages()" class="submit-btn" style="width: 100%;">Upload to Senior Gallery</button>
+    </div>
+  </section>
+
+  <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
+  <script>
+    function uploadImages() {
+      const files = document.getElementById('fileInput').files;
+      if (files.length === 0) {
+        alert("Please select images first");
+        return;
+      }
+
+      files.forEach(file => {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', 'YOUR_UPLOAD_PRESET'); // Replace if you have one
+        formData.append('tags', 'senior');
+
+        fetch('https://api.cloudinary.com/v1_1/dnskk9pag/image/upload', {
+          method: 'POST',
+          body: formData
+        })
+        .then(() => console.log('Uploaded'))
+        .catch(err => console.error(err));
+      });
+
+      alert("Images uploaded! They should appear in Senior Pictures shortly.");
     }
-  });
-
-  document.getElementById("upload-btn").addEventListener("click", () => {
-    widget.open();
-  });
-</script>
-
+  </script>
 </body>
 </html>
