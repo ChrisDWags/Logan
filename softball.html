@@ -14,7 +14,7 @@
   </section>
 
   <script>
-    fetch('https://res.cloudinary.com/dnskk9pag/image/list?prefix=home/home/softball_gallery&max_results=200')
+    fetch('https://res.cloudinary.com/dnskk9pag/image/list?prefix=home/softball_gallery&max_results=200')
       .then(res => res.json())
       .then(data => {
         const container = document.getElementById("softball-gallery");
@@ -29,13 +29,13 @@
             container.appendChild(image);
           });
         } else {
-          container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 40px;">No images found yet. Upload some to the <strong>home/home/softball_gallery</strong> folder in Cloudinary.</p>';
+          container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #666;">No images found yet in <strong>home/softball_gallery</strong></p>';
         }
       })
       .catch(err => {
-        console.error("Error loading images:", err);
+        console.error(err);
         document.getElementById("softball-gallery").innerHTML = 
-          '<p style="grid-column: 1 / -1; text-align: center; color: #e74c3c;">Unable to load gallery right now.</p>';
+          '<p style="grid-column: 1 / -1; text-align: center; color: #e74c3c;">Error loading images. Check console (F12).</p>';
       });
   </script>
 </body>
