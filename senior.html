@@ -14,31 +14,30 @@
   </section>
 
   <script>
-  fetch('https://res.cloudinary.com/dnskk9pag/image/resources?prefix=home/senior_gallery&max_results=200')
-    .then(res => {
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return res.json();
-    })
+  const cloudName = "dnskk9pag";
+  const prefix = "senior_gallery";   // ← change this if needed
+
+  fetch(`https://res.cloudinary.com/${cloudName}/image/resources?prefix=${prefix}&max_results=200`)
+    .then(res => res.json())
     .then(data => {
       const container = document.getElementById("senior-gallery");
       container.innerHTML = '';
 
       if (data.resources && data.resources.length > 0) {
+        console.log("Found", data.resources.length, "images");
         data.resources.forEach(img => {
           const image = document.createElement("img");
           image.src = img.secure_url;
-          image.alt = img.public_id || "Senior photo";
           image.className = "gallery-photo";
           container.appendChild(image);
         });
       } else {
-        container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 40px;">No images found in <strong>home/senior_gallery</strong></p>';
+        container.innerHTML = `<p>No images found for prefix: ${prefix}</p>`;
       }
     })
     .catch(err => {
       console.error(err);
-      document.getElementById("senior-gallery").innerHTML = 
-        `<p style="color:red; grid-column: 1 / -1; text-align: center;">Error: ${err.message}<br><br>Try different prefix below.</p>`;
+      document.getElementById("senior-gallery").innerHTML = '<p style="color:red;">Failed to load. Check console (F12).</p>';
     });
 </script>
 </body>
